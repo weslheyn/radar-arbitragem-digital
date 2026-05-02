@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>Radar Arbitragem Digital</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="installBanner" class="install-banner hidden">
+    <div>
+      <strong>Instale o app</strong>
+      <span>Acesse em tela cheia no celular.</span>
+    </div>
+    <button id="installBtn">Instalar</button>
+    <button id="closeInstall" class="ghost-btn">Agora não</button>
+  </div>
+
+  <main class="app-shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Sistema online</p>
+        <h1>Radar Arbitragem Digital</h1>
+        <p>Encontre oportunidades, calcule lucro real e gere anúncios prontos para vender.</p>
+      </div>
+      <div class="hero-card">
+        <span>Lucro estimado</span>
+        <strong id="heroProfit">R$ 0,00</strong>
+        <small id="heroProducts">0 produtos ativos</small>
+      </div>
+    </header>
+
+    <section class="stats-grid">
+      <article class="stat-card"><span>Produtos</span><strong id="totalProducts">0</strong></article>
+      <article class="stat-card"><span>Excelentes</span><strong id="excellentCount">0</strong></article>
+      <article class="stat-card"><span>Margem média</span><strong id="avgMargin">0%</strong></article>
+      <article class="stat-card"><span>Melhor score</span><strong id="bestScore">0.0</strong></article>
+    </section>
+
+    <section class="layout-grid">
+      <form id="productForm" class="panel form-panel">
+        <div class="panel-title">
+          <h2>Novo produto</h2>
+          <p>Cadastre o produto e o app calcula tudo.</p>
+        </div>
+
+        <label>Nome do produto<input id="name" required placeholder="Ex: Fone Bluetooth Premium" /></label>
+        <label>Link de compra<input id="buyLink" placeholder="https://..." /></label>
+        <label>Link de referência de venda<input id="sellLink" placeholder="https://..." /></label>
+
+        <div class="input-grid">
+          <label>Compra (R$)<input id="cost" required type="number" min="0" step="0.01" /></label>
+          <label>Venda (R$)<input id="sale" required type="number" min="0" step="0.01" /></label>
+          <label>Frete (R$)<input id="shipping" type="number" min="0" step="0.01" value="0" /></label>
+          <label>Taxa (%)<input id="feePercent" type="number" min="0" step="0.01" value="12" /></label>
+          <label>Embalagem (R$)<input id="packing" type="number" min="0" step="0.01" value="2" /></label>
+          <label>Reserva risco (R$)<input id="risk" type="number" min="0" step="0.01" value="5" /></label>
+        </div>
+
+        <label>Observações<textarea id="notes" rows="3" placeholder="Ex: produto viral, entrega rápida, baixa concorrência..."></textarea></label>
+
+        <button type="submit" class="primary-btn">Salvar oportunidade</button>
+        <button type="button" id="clearBtn" class="secondary-btn">Limpar cadastro</button>
+      </form>
+
+      <aside class="panel calculator-panel">
+        <div class="panel-title">
+          <h2>Prévia do cálculo</h2>
+          <p>Atualiza enquanto você digita.</p>
+        </div>
+        <div class="result-card" id="previewStatus">
+          <span id="previewLabel">Aguardando dados</span>
+          <strong id="previewProfit">R$ 0,00</strong>
+          <small id="previewMargin">Margem 0%</small>
+        </div>
+        <div class="score-box">
+          <span>Score</span>
+          <strong id="previewScore">0.0 / 10</strong>
+          <p id="previewAction">Preencha os valores para analisar.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="panel">
+      <div class="toolbar">
+        <div class="panel-title">
+          <h2>Radar de oportunidades</h2>
+          <p>Produtos classificados por lucro e score.</p>
+        </div>
+        <div class="toolbar-actions">
+          <input id="searchInput" placeholder="Buscar produto..." />
+          <select id="filterSelect">
+            <option value="all">Todos</option>
+            <option value="excellent">Excelentes</option>
+            <option value="medium">Médios</option>
+            <option value="bad">Ruins</option>
+          </select>
+        </div>
+      </div>
+      <div id="productsList" class="products-list"></div>
+    </section>
+
+    <section class="panel ad-panel">
+      <div class="panel-title">
+        <h2>Gerador de anúncio</h2>
+        <p>Selecione um produto no radar para gerar o texto.</p>
+      </div>
+      <textarea id="adText" rows="10" readonly placeholder="O anúncio aparecerá aqui..."></textarea>
+      <div class="action-row">
+        <button id="copyAdBtn" class="primary-btn">Copiar anúncio</button>
+        <button id="openFacebookBtn" class="secondary-btn">Abrir Facebook Marketplace</button>
+        <button id="openOlxBtn" class="secondary-btn">Abrir OLX</button>
+        <button id="openWhatsBtn" class="secondary-btn">Enviar WhatsApp</button>
+      </div>
+    </section>
+  </main>
+
+  <nav class="bottom-nav">
+    <a href="#" class="active">Início</a>
+    <a href="#productForm">Cadastrar</a>
+    <a href="#productsList">Radar</a>
+    <a href="#adText">Anúncio</a>
+  </nav>
+
+  <script src="app.js"></script>
+</body>
+</html>
